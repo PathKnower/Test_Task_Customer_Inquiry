@@ -9,7 +9,10 @@ namespace Test_Task_Customer_Inquiry.DataContracts
 {
     public class Transaction
     {
+        [Key]
         public int Id { get; set; }
+
+        public int CustomerId { get; set; }
 
         public DateTime Date { get; set; }
 
