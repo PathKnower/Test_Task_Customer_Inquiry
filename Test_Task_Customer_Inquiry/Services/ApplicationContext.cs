@@ -25,11 +25,6 @@ namespace Test_Task_Customer_Inquiry.Services
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Transaction>(entity =>
-            //{
-            //    entity.HasOne<Customer>().WithMany(x => x.Transactions).HasForeignKey("CustomerId");
-            //});
-
             var transactionsOfUsers = new Transaction[]
             {
                 new Transaction { Id = 1, CustomerId = 1, Amount = 1234, Currency = "USD", Date = new DateTime(2018, 10, 20, 15, 35, 23), Status = TransactionStatus.Success},

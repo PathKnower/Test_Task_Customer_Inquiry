@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 using Test_Task_Customer_Inquiry.Services;
 using Test_Task_Customer_Inquiry.ViewModels;
 
@@ -19,60 +21,24 @@ namespace Test_Task_Customer_Inquiry.Controllers
             _inquiryService = inquiryService;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            InquiryViewModel model = new InquiryViewModel
-            {
-                Email = string.Empty,
-                CustomerID = id
-            };
-
-            if (id < 0 || id > 1000000000)
-            {
-                ModelState.AddModelError("id", "\'id\' Cannot be less than 0 and more than 1000000000");
-                return BadRequest(ModelState);
-            }
-
-            var result = _inquiryService.GetCustomer(id);
-            if (result == null)
-                return NotFound();
-            else
-                return Ok(result);
-        }
-
-        [HttpGet("{email}")]
-        public IActionResult Get(string email)
-        {
-            InquiryViewModel model = new InquiryViewModel
-            {
-                Email = email,
-                CustomerID = -1
-            };
-
-            TryValidateModel(model);
-            if (!ModelState.IsValid || string.IsNullOrWhiteSpace(email))
-            {
-                ModelState.AddModelError("Email", "\'email\' is not valid");
-                return BadRequest(ModelState);
-            }
-
-            var result = _inquiryService.GetCustomer(email);
-            if (result == null)
-                return NotFound();
-            else
-                return Ok(result);
-        }
-
         [HttpGet]
         public IActionResult Get([FromForm]InquiryViewModel model)
         {
-            if (!ModelState.IsValid || string.IsNullOrWhiteSpace(model.Email))
-            {
-                return BadRequest();
-            }
+            var validationOfID = ModelState.GetFieldValidationState("CustomerID");
+            var validationOfEmail = ModelState.GetFieldValidationState("Email");
 
-            var result = _inquiryService.GetCustomer(model.CustomerID, model.Email);
+            if(validationOfEmail != ModelValidationState.Valid && validationOfID != ModelValidationState.Valid)
+                return BadRequest();
+
+            CustomerViewModel result = null;
+
+            if (validationOfID == ModelValidationState.Valid && validationOfEmail == ModelValidationState.Valid)
+                result = _inquiryService.GetCustomer(model.CustomerID, model.Email);
+            else if (validationOfEmail == ModelValidationState.Valid)
+                result = _inquiryService.GetCustomer(model.Email);
+            else if (validationOfID == ModelValidationState.Valid)
+                result = _inquiryService.GetCustomer(model.CustomerID);
+
             if (result == null)
                 return NotFound();
             else
