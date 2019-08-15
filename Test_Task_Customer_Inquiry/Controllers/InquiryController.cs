@@ -21,6 +21,11 @@ namespace Test_Task_Customer_Inquiry.Controllers
             _inquiryService = inquiryService;
         }
 
+        /// <summary>
+        /// WARNING: Due the unknown reason for me, swagger provide invalid value to here (Postman was used for test). Main endpoint to get info about the Customer.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns ></returns>
         [HttpGet]
         public IActionResult Get([FromForm]InquiryViewModel model)
         {

@@ -8,9 +8,16 @@ namespace Test_Task_Customer_Inquiry.ViewModels
 {
     public class InquiryViewModel
     {
-        [Range(0, 1000000000)]
-        public int CustomerID { get; set; } = -1;
+        /// <summary>
+        /// Customer ID for searching
+        /// </summary>
+        [Range(1, 1000000000)]
+        public int CustomerID { get; set; }
 
+
+        /// <summary>
+        /// Customer Email for searching
+        /// </summary>
         [EmailAddress]
         [StringLength(25, MinimumLength = 3)]
         public string Email { get; set; }

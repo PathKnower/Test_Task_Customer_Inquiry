@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Test_Task_Customer_Inquiry</name>
+    </assembly>
+    <members>
+        <member name="M:Test_Task_Customer_Inquiry.Controllers.InquiryController.Get(Test_Task_Customer_Inquiry.ViewModels.InquiryViewModel)">
+            <summary>
+            WARNING: Due the unknown reason for me, swagger provide invalid value to here (Postman was used for test). Main endpoint to get info about the Customer.
+            </summary>
+            <param name="model"></param>
+            <returns ></returns>
+        </member>
+        <member name="P:Test_Task_Customer_Inquiry.DataContracts.Customer.Mobile">
+            <summary>
+            This and Id property should have a String type, but due the requirements (both of them must be numeric) these properties is int.
+            </summary>
+        </member>
+        <member name="P:Test_Task_Customer_Inquiry.ViewModels.InquiryViewModel.CustomerID">
+            <summary>
+            Customer ID for searching
+            </summary>
+        </member>
+        <member name="P:Test_Task_Customer_Inquiry.ViewModels.InquiryViewModel.Email">
+            <summary>
+            Customer Email for searching
+            </summary>
+        </member>
+    </members>
+</doc>

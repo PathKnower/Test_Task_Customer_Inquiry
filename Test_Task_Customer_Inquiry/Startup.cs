@@ -13,6 +13,9 @@ using Microsoft.Extensions.Options;
 
 using Npgsql;
 
+using NSwag;
+using NSwag.AspNetCore;
+
 using Test_Task_Customer_Inquiry.Services;
 
 namespace Test_Task_Customer_Inquiry
@@ -41,6 +44,14 @@ namespace Test_Task_Customer_Inquiry
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<IInquiryService, InquiryService>();
+
+            services.AddOpenApiDocument(document =>
+            {
+                document.PostProcess = d =>
+                {
+                    d.Info.Title = "Customer Inquiry";
+                };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -49,8 +60,10 @@ namespace Test_Task_Customer_Inquiry
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseMvc();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }
