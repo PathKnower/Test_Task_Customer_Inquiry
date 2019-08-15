@@ -33,7 +33,8 @@ namespace Test_Task_Customer_Inquiry
             services.AddDbContext<ApplicationContext>(config => 
             {
                 config.UseLazyLoadingProxies();
-                config.UseNpgsql(Configuration.GetConnectionString("DB"));
+                //config.UseNpgsql(Configuration.GetConnectionString("DB"));
+                config.UseSqlServer(Configuration.GetConnectionString("SqlDB"));
             });
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();

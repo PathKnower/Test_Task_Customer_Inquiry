@@ -1,10 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Test_Task_Customer_Inquiry.Migrations
 {
-    public partial class Initial : Migration
+    public partial class SqlServerInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace Test_Task_Customer_Inquiry.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Mobile = table.Column<int>(nullable: false)
@@ -28,7 +28,7 @@ namespace Test_Task_Customer_Inquiry.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
@@ -49,12 +49,17 @@ namespace Test_Task_Customer_Inquiry.Migrations
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "Email", "Mobile", "Name" },
-                values: new object[,]
-                {
-                    { 1, "sample@email.com", 46843214, "Temp Customer" },
-                    { 2, "anothersample@email.com", 125124, "Firstname Lastname" },
-                    { 3, "somemail@mail.com", 684321, "Some Customer" }
-                });
+                values: new object[] { 1, "sample@email.com", 46843214, "Temp Customer" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Email", "Mobile", "Name" },
+                values: new object[] { 2, "anothersample@email.com", 125124, "Firstname Lastname" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Email", "Mobile", "Name" },
+                values: new object[] { 3, "somemail@mail.com", 684321, "Some Customer" });
 
             migrationBuilder.InsertData(
                 table: "Transactions",
