@@ -14,6 +14,9 @@ namespace Test_Task_Customer_Inquiry.DataContracts
 
         public string Email { get; set; }
 
+        /// <summary>
+        /// This and Id property should have a String type, but due the requirements (both of them must be numeric) these properties is int.
+        /// </summary>
         public int Mobile { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
